@@ -43,14 +43,13 @@ public class UserRegistrationTest {
         boolean isValid = userRegistration.validateEmail(email);
 
         // Use assertion to verify the expected outcome
-        if (email.matches("^(abc@yahoo.com|abc-100@yahoo.com|abc.100@yahoo.com|abc111@abc.com|abc-100@abc.net|abc.100@abc.com.au|abc@1.com|abc@gmail.com.com|abc+100@gmail.com)$")) {
+        if (email.equals("abc+100@gmail.com")||email.matches("^(abc+100@gmail.com|abc@yahoo.com|abc-100@yahoo.com|abc.100@yahoo.com|abc111@abc.com|abc-100@abc.net|abc.100@abc.com.au|abc@1.com|abc@gmail.com.com)$")) {
             Assertions.assertTrue(isValid, email + " should be valid");
         } else {
             Assertions.assertFalse(isValid, email + " should be invalid");
         }
     }
     @Test
-
     void testFirstNameValidation() {
         // Happy Test Case
         assertTrue(userRegistration.validateFirstName("John"));

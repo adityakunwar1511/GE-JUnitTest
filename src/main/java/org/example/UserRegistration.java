@@ -13,43 +13,47 @@ public class UserRegistration {
     }
 
     // Method to validate first name
-    public boolean validateFirstName(String firstName) throws UserRegistrationException {
+    public boolean validateFirstName(String firstName)  {
         String regex = "^[A-Z][a-zA-Z]{2,}$"; // Starts with uppercase and at least 3 characters
         if (!firstName.matches(regex)) {
-            throw new UserRegistrationException("Invalid First Name: Must start with an uppercase letter and have at least 3 characters.");
+            return false;
+          //  throw new UserRegistrationException("Invalid First Name: Must start with an uppercase letter and have at least 3 characters.");
         }
         return true;
     }
 
     // Method to validate last name
-    public boolean validateLastName(String lastName) throws UserRegistrationException {
+    public boolean validateLastName(String lastName)  {
         String regex = "^[A-Z][a-zA-Z]{2,}$"; // Starts with uppercase and at least 3 characters
         if (!lastName.matches(regex)) {
-            throw new UserRegistrationException("Invalid Last Name: Must start with an uppercase letter and have at least 3 characters.");
+            return false;
+           // throw new UserRegistrationException("Invalid Last Name: Must start with an uppercase letter and have at least 3 characters.");
         }
         return true;
     }
 
     // Method to validate email
-    public boolean validateEmail(String email) throws UserRegistrationException {
+    public boolean validateEmail(String email)  {
         String regex = "^[a-zA-Z0-9]+([._+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})?$";
         if (!email.matches(regex)) {
-            throw new UserRegistrationException("Invalid Email: Does not follow a valid email format.");
+            return false;
+           // throw new UserRegistrationException("Invalid Email: Does not follow a valid email format.");
         }
         return true;
     }
 
     // Method to validate mobile number
-    public boolean validateMobileNumber(String mobileNumber) throws UserRegistrationException {
+    public boolean validateMobileNumber(String mobileNumber)  {
         String regex = "^[0-9]{1,3} [0-9]{10}$"; // Country code followed by space and 10-digit number
         if (!mobileNumber.matches(regex)) {
-            throw new UserRegistrationException("Invalid Mobile Number: Must contain a country code followed by a 10-digit number.");
+            return false;
+           // throw new UserRegistrationException("Invalid Mobile Number: Must contain a country code followed by a 10-digit number.");
         }
         return true;
     }
 
     // Method to validate password
-    public boolean validatePassword(String password) throws UserRegistrationException {
+    public boolean validatePassword(String password) {
         String rule1 = ".{8,}"; // Minimum 8 characters
         String rule2 = "(?=.*[A-Z]).*"; // At least one uppercase letter
         String rule3 = "(?=.*[0-9]).*"; // At least one numeric number
@@ -59,7 +63,8 @@ public class UserRegistration {
                 !password.matches(rule2) ||
                 !password.matches(rule3) ||
                 !password.matches(rule4)) {
-            throw new UserRegistrationException("Invalid Password: Must be at least 8 characters long, contain one uppercase letter, one numeric digit, and one special character.");
+            return false;
+           // throw new UserRegistrationException("Invalid Password: Must be at least 8 characters long, contain one uppercase letter, one numeric digit, and one special character.");
         }
         return true;
     }
@@ -68,11 +73,9 @@ public class UserRegistration {
     public List<Boolean> validateEmailSamples(List<String> emails) {
         List<Boolean> results = new ArrayList<>();
         for (String email : emails) {
-            try {
+
                 results.add(validateEmail(email));
-            } catch (UserRegistrationException e) {
-                results.add(false);
-            }
+
         }
         return results;
     }
@@ -80,45 +83,35 @@ public class UserRegistration {
     public static void main(String[] args) {
         UserRegistration userRegistration = new UserRegistration();
 
-        try {
+
             System.out.println("First Name Validation:");
             System.out.println(userRegistration.validateFirstName("John")); // Should return true
             System.out.println(userRegistration.validateFirstName("jo"));   // Should throw exception
-        } catch (UserRegistrationException e) {
-            System.out.println(e.getMessage());
-        }
 
-        try {
+
+
             System.out.println("Last Name Validation:");
             System.out.println(userRegistration.validateLastName("Doe"));  // Should return true
             System.out.println(userRegistration.validateLastName("do"));   // Should throw exception
-        } catch (UserRegistrationException e) {
-            System.out.println(e.getMessage());
-        }
 
-        try {
+
+
             System.out.println("Email Validation:");
             System.out.println(userRegistration.validateEmail("abc.xyz@bl.co.in")); // Should return true
             System.out.println(userRegistration.validateEmail("abc@.com.my"));     // Should throw exception
-        } catch (UserRegistrationException e) {
-            System.out.println(e.getMessage());
-        }
 
-        try {
+
+
             System.out.println("Mobile Number Validation:");
             System.out.println(userRegistration.validateMobileNumber("91 9919819801")); // Should return true
             System.out.println(userRegistration.validateMobileNumber("919919819801"));  // Should throw exception
-        } catch (UserRegistrationException e) {
-            System.out.println(e.getMessage());
-        }
 
-        try {
+
+
             System.out.println("Password Validation:");
             System.out.println(userRegistration.validatePassword("Abc@1234")); // Should return true
             System.out.println(userRegistration.validatePassword("abc1234")); // Should throw exception
-        } catch (UserRegistrationException e) {
-            System.out.println(e.getMessage());
-        }
+
 
         List<String> emailSamples = new ArrayList<>();
 
